@@ -6,8 +6,8 @@ javac -d bin src/Classes/*.java
 
 echo "Compiling PreProcessData......"
 javac -d bin -cp $CLASSPATH src/PreProcessData/*.java
-echo "Compiling Indexing......"
 
+echo "Compiling Indexing......"
 javac -d bin -cp $CLASSPATH src/Indexing/*.java
 
 echo "Compiling IndexingLucene......"
