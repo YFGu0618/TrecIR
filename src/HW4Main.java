@@ -19,6 +19,7 @@ public class HW4Main {
 		long startTime = System.currentTimeMillis();
 		while (queries.hasNext()) {
 			Query aQuery = queries.next();
+			System.out.println(aQuery.GetTopicId() + "\t" + aQuery.GetQueryContent());
 			List<Document> results = PRFSearchModel.RetrieveQuery(aQuery, 20, 100, 0.4);
 			if (results != null) {
 				int rank = 1;

@@ -64,7 +64,6 @@ public class QueryRetrievalModel {
 		// query likelihood model, calculate the probability of 
 		// each document model generating each query terms
 		List<DocScore> lResults = new ArrayList<>();
-		// List<DocScore> lResults = new ArrayList<>();
 		queryResult.forEach((docid, ttf) -> {
 			int doclen = 0;
 			double score = 1.0;

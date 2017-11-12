@@ -27,6 +27,7 @@ javac -d bin -cp $CLASSPATH src/HW1Main.java
 javac -d bin -cp $CLASSPATH src/HW2Main.java
 javac -d bin -cp $CLASSPATH src/HW2MainLucene.java
 javac -d bin -cp $CLASSPATH src/HW3Main.java
+javac -d bin -cp $CLASSPATH src/HW3MainLucene.java
 javac -d bin -cp $CLASSPATH src/HW4Main.java
 
 echo "Compile completed!"
