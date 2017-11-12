@@ -1,6 +1,5 @@
 package Search;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
@@ -18,9 +17,9 @@ public class QueryRetrievalModel {
 	private static double MU = 2000.0; // The Dirichlet Prior Smoothing factor
 	private static long CORPUS_SIZE;
 	
-	public QueryRetrievalModel(MyIndexReader ixreader) {
-		indexReader = ixreader;
-		CORPUS_SIZE = indexReader.CorpusSize();
+	public QueryRetrievalModel(MyIndexReader indexReader) {
+		this.indexReader = indexReader;
+		CORPUS_SIZE = this.indexReader.CorpusSize();
 	}
 
 	/**
@@ -28,22 +27,20 @@ public class QueryRetrievalModel {
 	 * The returned results (retrieved documents) should be ranked by the score (from the most relevant to the least).
 	 * TopN specifies the maximum number of results to be returned.
 	 * 
-	 * @param  aQuery      aQuery The query to be searched for.
-	 * @param  TopN        TopN The maximum number of returned document
-	 * @return             [description]
-	 * @throws IOException [description]
+	 * @param  aQuery      query to be searched for.
+	 * @param  TopN        maximum number of returned document
+	 * @return             most relevant document, in List structure
+	 * @throws Exception   
 	 */
-	public List<Document> retrieveQuery( Query aQuery, int TopN ) throws IOException {
+	public List<Document> retrieveQuery( Query aQuery, int TopN ) throws Exception {
 		List<Document> results = new ArrayList<>();
 
 		// map for storing the <docid, <term, term_freq>>
 		Map<Integer, HashMap<String, Integer>> queryResult = new HashMap<>();
 		// map for storing the <term, collection_freq>
 		Map<String, Long> termFreq = new HashMap<>();
-
 		// store tokens in aQuery into String array
 		String[] tokens = aQuery.GetQueryContent().split(" ");
-
 		// search for each token then calculate the corresponding scores
 		for (String token : tokens) {
 			long cf = indexReader.CollectionFreq(token);
@@ -56,8 +53,8 @@ public class QueryRetrievalModel {
 			for(int[] posting : postingList) {
 				if(!queryResult.containsKey(posting[0])) {
 					HashMap<String, Integer> ttf = new HashMap<>();
-					queryResult.put(posting[0], ttf);
 					ttf.put(token, posting[1]);
+					queryResult.put(posting[0], ttf);
 				}
 				else
 					queryResult.get(posting[0]).put(token, posting[1]);
@@ -108,6 +105,8 @@ public class QueryRetrievalModel {
 		}
 		return results;
 	} // end of retrieveQuery
+
+
 
 	// store docid and corresponding score
 	private class DocScore {
