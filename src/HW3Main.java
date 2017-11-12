@@ -4,12 +4,6 @@ import Classes.*;
 import IndexingLucene.*;
 import Search.*;
 
-/**
- * !!! YOU CANNOT CHANGE ANYTHING IN THIS CLASS !!!
- * 
- * Main class for running your HW3.
- * 
- */
 public class HW3Main {
 
 	public static void main(String[] args) throws Exception {
@@ -24,7 +18,7 @@ public class HW3Main {
 		while (queries.hasNext()) {
 			Query aQuery = queries.next();
 			System.out.println(aQuery.GetTopicId() + "\t" + aQuery.GetQueryContent());
-			// conduct retrieval on the index for each topic, and return top 25 documents
+			// conduct retrieval on the index for each topic, and return top 20 documents
 			List<Document> results = model.retrieveQuery(aQuery, 20);
 			if (results != null) {
 				int rank = 1;
