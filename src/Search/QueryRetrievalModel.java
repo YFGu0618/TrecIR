@@ -22,20 +22,18 @@ public class QueryRetrievalModel {
 		indexReader = ixreader;
 		CORPUS_SIZE = indexReader.CorpusSize();
 	}
-	
+
 	/**
 	 * Search for the topic information. 
 	 * The returned results (retrieved documents) should be ranked by the score (from the most relevant to the least).
 	 * TopN specifies the maximum number of results to be returned.
 	 * 
-	 * @param aQuery The query to be searched for.
-	 * @param TopN The maximum number of returned document
-	 * @return
+	 * @param  aQuery      aQuery The query to be searched for.
+	 * @param  TopN        TopN The maximum number of returned document
+	 * @return             [description]
+	 * @throws IOException [description]
 	 */
 	public List<Document> retrieveQuery( Query aQuery, int TopN ) throws IOException {
-		// NT: you will find our IndexingLucene.Myindexreader provides method: docLength()
-		// implement your retrieval model here, and for each input query, return the topN retrieved documents
-		// sort the docs based on their relevance score, from high to low
 		List<Document> results = new ArrayList<>();
 
 		// map for storing the <docid, <term, term_freq>>
@@ -54,10 +52,7 @@ public class QueryRetrievalModel {
 				System.out.println("Token <" + token + "> not found in corpus!");
 				continue;
 			}
-			int[][] postingList = null;
-			// if the token is not in the queryResult, then search
-			// for it from the index and put into queryResult
-			postingList = indexReader.getPostingList(token);
+			int[][] postingList = indexReader.getPostingList(token);
 			for(int[] posting : postingList) {
 				if(!queryResult.containsKey(posting[0])) {
 					HashMap<String, Integer> ttf = new HashMap<>();
@@ -96,20 +91,12 @@ public class QueryRetrievalModel {
 			}
 			DocScore tmpDS = new DocScore(docid, score);
 			lResults.add(tmpDS);
-			// if (cnt >= TopN){
-			// 	Arrays.sort(lResults, new DocScoreComparator());
-			// 	if(tmpDS.getScore() > lResults[TopN-1].getScore()) {
-			// 		lResults[TopN-1] = tmpDS;
-			// 	}
-			// }
-			// else {
-			// 	lResults[cnt] = tmpDS;
-			// }
 		}); // end of queryResult.forEach()
+
+		// sort the List with DocScoreComparator()
 		Collections.sort(lResults, new DocScoreComparator());
 
 		// put all documents into result list
-		// for (DocScore ds : lResults) {
 		for (int cnt = 0; cnt < TopN; cnt++) {
 			DocScore ds = lResults.get(cnt);
 			Document doc = null;
@@ -122,6 +109,7 @@ public class QueryRetrievalModel {
 		return results;
 	} // end of retrieveQuery
 
+	// store docid and corresponding score
 	private class DocScore {
 		private int docid;
 		private double score;
@@ -137,6 +125,7 @@ public class QueryRetrievalModel {
 		}
 	} // end of DocScore
 
+	// comparator for sorting the result List<DocScore>
 	private class DocScoreComparator implements Comparator<DocScore> {
 		public int compare(DocScore arg0, DocScore arg1) {
 			if( arg0.score != arg1.score)
