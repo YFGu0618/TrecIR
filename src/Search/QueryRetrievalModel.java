@@ -106,8 +106,6 @@ public class QueryRetrievalModel {
 		return results;
 	} // end of retrieveQuery
 
-
-
 	// store docid and corresponding score
 	private class DocScore {
 		private int docid;
