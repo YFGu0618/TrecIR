@@ -1,3 +1,5 @@
+#! /bin/bash
+
 mkdir -p bin
 CLASSPATH=".:bin:lib/lucene-core-6.3.0.jar:lib/lucene-backward-codecs-6.3.0.jar:lib/lucene-analyzers-common-6.3.0.jar:lib/lucene-queryparser-6.3.0.jar:"
 
