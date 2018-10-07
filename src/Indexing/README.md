@@ -2,14 +2,14 @@
 
 ## 1. Build an index
 
-- **Indexing.PreProcessedCorpusReader** access to the _result.trectext_ and _result.trecweb_, and return document one by one through the _nextDocument()_.
-- **Indexing.MyIndexWriter** has one essential method _IndexADocument(String docno, String content)_ to create index for a document represented by the **docno** and the **content**.
+- **Indexing.PreProcessedCorpusReader** access to the `result.trectext` and `result.trecweb`, and return document one by one through the `nextDocument()`.
+- **Indexing.MyIndexWriter** has one essential method `IndexADocument(String docno, String content)` to create index for a document represented by the `docno` and the `content`.
 
 ## 2. Retrieve posting lists of tokens from an index
 
 - **Indexing.MyIndexReader** has the following methods:
-  - _MyIndexReader()_: read the index file.
-  - _int GetDocid(String docno )_ and _String getDocno(int docid )_: provides transformation between string docnos and integer docids.
-  - _int[][] GetPostingList(String token )_: retrieve posting list of the token as a 2-dimension array (see comments in MyIndexReader for the structure of the array)
-  - _int GetDocFreq(String token )_: get the document frequency of the token.
-  - _long GetCollectionFreq(String token )_: get the collection frequency of the token.
+  - `MyIndexReader()`: read the index file.
+  - `int GetDocid(String docno )` and `String getDocno(int docid )`: provides transformation between string `docno`s and integer `docid`s.
+  - `int[][] GetPostingList(String token )`: retrieve posting list of the token as a 2-dimension array (see comments in `MyIndexReader` for the structure of the array)
+  - `int GetDocFreq(String token )`: get the document frequency of the token.
+  - `long GetCollectionFreq(String token )`: get the collection frequency of the token.
